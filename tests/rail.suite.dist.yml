@@ -1,0 +1,12 @@
+actor: RailTester
+modules:
+    enabled:
+        - \Helper\Acceptance:
+        - \Helper\Base:
+            login: login
+            password: password
+            clientId: clientId
+        - WebDriver:
+            url: https://raketa.travel
+            browser: phantomjs
+        

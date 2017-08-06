@@ -75,6 +75,18 @@ class RailTester extends \Codeception\Actor
     }
 
     /**
+     * @param string $carriageNumber
+     */
+    public function seeCarriage($carriageNumber)
+    {
+        $I = $this;
+
+        $I->seeElement("//*[contains(text(), '{$carriageNumber}')]");
+    }
+
+
+
+    /**
      * Выбор поезда.
      * @param string $flightNumber
      */
@@ -83,5 +95,30 @@ class RailTester extends \Codeception\Actor
         $I = $this;
 
         $I->click("//a[@class='nextStep' and contains(@href, 'flightNumber={$flightNumber}')]");
+    }
+
+    /**
+     * Выбор поезда.
+     * @param string $carriageNumber
+     */
+    public function chooseCarriage($carriageNumber)
+    {
+        $I = $this;
+
+        $escapedCarriageNumber = urlencode($carriageNumber);
+
+        $I->click("//a[contains(@href, '{$escapedCarriageNumber}')]");
+    }
+
+    /**
+     * Проверяем схему вагона.
+     * 
+     * @param string $code
+     */
+    public function seeCarriageSchema($code)
+    {
+        $I = $this;
+
+        $I->seeElement("g[data-name='{$code}']");
     }
 }

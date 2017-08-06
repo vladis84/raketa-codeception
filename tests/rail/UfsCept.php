@@ -4,6 +4,7 @@ $I = new RailTester($scenario);
 $I->wantToTest('Тестируем поиск ЖД билетов поиставщика УФС');
 
 // Подготовительные действия.
+$I->expectTo('Вход на сайт');
 $I->login();
 $I->expectTo('Выбор клиента');
 $I->chooseClient();
@@ -13,6 +14,7 @@ $I->amGoToLookRailTicket();
 // Проверяем, что попали на нужный контроллер.
 $I->expectTo('выбран нужный поставщик');
 $I->seeInCurrentUrl('urail');
+$I->seeStepActive('Маршрут');
 
 // Валидация формы маршрута пассажира.
 $I->expectTo('Валидация формы маршрута пассажира');
@@ -24,9 +26,11 @@ $I->seeElement('.errors');
 $I->expectTo('Просмотр списка поездов');
 $I->dontSeeElement('.report-trains');
 $I->fillPassengerRoute('Екатеринбург', 'Москва', '2017-08-20');
+$I->seeStepActive('Поезд');
 $I->seeElement('.report-trains');
 
 // Выбор поезда.
 $I->expectTo('Выбор поезда');
-$I->seeElement("//*[contains(text(), '№ 089У')]");
-$I->click("//a[contains(@href, 'flightNumber=089')]");
+$I->seeTrain('№ 089У');
+$I->chooseTrain('089');
+$I->seeStepActive('Вагон');

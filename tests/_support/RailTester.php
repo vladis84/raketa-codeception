@@ -52,4 +52,36 @@ class RailTester extends \Codeception\Actor
 
         $I->click('[href="/ru/search/rail"]');
     }
+
+    /**
+     * Проверяем что находимся на нужном шаге ()
+     * @param string $step Название шага
+     */
+    public function seeStepActive($step)
+    {
+        $I = $this;
+
+        $I->see($step, '.railway-step .active');
+    }
+
+    /**
+     * @param string $flightNumber
+     */
+    public function seeTrain($flightNumber)
+    {
+        $I = $this;
+
+        $I->seeElement("//*[contains(text(), '{$flightNumber}')]");
+    }
+
+    /**
+     * Выбор поезда.
+     * @param string $flightNumber
+     */
+    public function chooseTrain($flightNumber)
+    {
+        $I = $this;
+
+        $I->click("//a[@class='nextStep' and contains(@href, 'flightNumber={$flightNumber}')]");
+    }
 }
